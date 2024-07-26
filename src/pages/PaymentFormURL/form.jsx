@@ -1,40 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Form = ({ fdata = {}, errors = {} }) => {
   const [formData, setFormData] = useState({
-    buyerEmail: fdata.buyerEmail || '',
-    buyerPhone: fdata.buyerPhone || '',
-    buyerFirstName: fdata.buyerFirstName || '',
-    buyerLastName: fdata.buyerLastName || '',
-    buyerAddress: fdata.buyerAddress || '',
-    buyerCity: fdata.buyerCity || '',
-    buyerState: fdata.buyerState || '',
-    buyerCountry: fdata.buyerCountry || '',
-    buyerPinCode: fdata.buyerPinCode || '',
-    orderid: fdata.orderid || '',
-    amount: fdata.amount || '',
-    customvar: fdata.customvar || '',
-    currency: fdata.currency || '356',
-    isocurrency: fdata.isocurrency || '',
-    txnsubtype: fdata.txnsubtype || ''
+    buyerEmail: fdata.buyerEmail || "",
+    buyerPhone: fdata.buyerPhone || "",
+    buyerFirstName: fdata.buyerFirstName || "",
+    buyerLastName: fdata.buyerLastName || "",
+    buyerAddress: fdata.buyerAddress || "",
+    buyerCity: fdata.buyerCity || "",
+    buyerState: fdata.buyerState || "",
+    buyerCountry: fdata.buyerCountry || "",
+    buyerPinCode: fdata.buyerPinCode || "",
+    orderid: fdata.orderid || "",
+    amount: fdata.amount || "",
+    customvar: fdata.customvar || "",
+    currency: fdata.currency || "356",
+    isocurrency: fdata.isocurrency || "",
+    txnsubtype: fdata.txnsubtype || "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
   return (
     <div className="rside">
       <div className="formwrap container-fluid">
-        <form method="POST" action="/sendtoairpay" className="form-horizontal" name="make_trans">
+        <form
+          method="POST"
+          action="/sendtoairpay"
+          className="form-horizontal"
+          name="make_trans"
+        >
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4">
               <div className="form-group">
-                <label htmlFor="buyerEmail">Buyer Email <font className="red">*</font><br/></label>
+                <label htmlFor="buyerEmail">
+                  Buyer Email <font className="red">*</font>
+                  <br />
+                </label>
                 <input
                   id="buyerEmail"
                   className="form-control"
@@ -43,12 +51,15 @@ const Form = ({ fdata = {}, errors = {} }) => {
                   value={formData.buyerEmail}
                   onChange={handleChange}
                 />
-                <font className="red">{errors.buyerEmail || ''}</font>
+                <font className="red">{errors.buyerEmail || ""}</font>
               </div>
             </div>
             <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4">
               <div className="form-group">
-                <label htmlFor="buyerPhone">Buyer Phone <font className="red">*</font><br/></label>
+                <label htmlFor="buyerPhone">
+                  Buyer Phone <font className="red">*</font>
+                  <br />
+                </label>
                 <input
                   id="buyerPhone"
                   className="form-control"
@@ -57,12 +68,15 @@ const Form = ({ fdata = {}, errors = {} }) => {
                   value={formData.buyerPhone}
                   onChange={handleChange}
                 />
-                <font className="red">{errors.buyerPhone || ''}</font>
+                <font className="red">{errors.buyerPhone || ""}</font>
               </div>
             </div>
             <div className="col-md-6 col-lg-4">
               <div className="form-group">
-                <label htmlFor="buyerFirstName">Buyer FirstName <font className="red">*</font><br/></label>
+                <label htmlFor="buyerFirstName">
+                  Buyer FirstName <font className="red">*</font>
+                  <br />
+                </label>
                 <input
                   id="buyerFirstName"
                   className="form-control"
@@ -71,12 +85,15 @@ const Form = ({ fdata = {}, errors = {} }) => {
                   value={formData.buyerFirstName}
                   onChange={handleChange}
                 />
-                <font className="red">{errors.buyerFirstName || ''}</font>
+                <font className="red">{errors.buyerFirstName || ""}</font>
               </div>
             </div>
             <div className="col-md-6 col-lg-4">
               <div className="form-group">
-                <label htmlFor="buyerLastName">Buyer LastName <font className="red">*</font><br/></label>
+                <label htmlFor="buyerLastName">
+                  Buyer LastName <font className="red">*</font>
+                  <br />
+                </label>
                 <input
                   id="buyerLastName"
                   className="form-control"
@@ -85,12 +102,15 @@ const Form = ({ fdata = {}, errors = {} }) => {
                   value={formData.buyerLastName}
                   onChange={handleChange}
                 />
-                <font className="red">{errors.buyerLastName || ''}</font>
+                <font className="red">{errors.buyerLastName || ""}</font>
               </div>
             </div>
             <div className="col-md-6 col-lg-4">
               <div className="form-group">
-                <label htmlFor="buyerAddress">Buyer Address:<br/></label>
+                <label htmlFor="buyerAddress">
+                  Buyer Address:
+                  <br />
+                </label>
                 <input
                   id="buyerAddress"
                   className="form-control"
@@ -103,7 +123,10 @@ const Form = ({ fdata = {}, errors = {} }) => {
             </div>
             <div className="col-md-6 col-lg-4">
               <div className="form-group">
-                <label htmlFor="buyerCity">Buyer City:<br/></label>
+                <label htmlFor="buyerCity">
+                  Buyer City:
+                  <br />
+                </label>
                 <input
                   id="buyerCity"
                   className="form-control"
@@ -116,7 +139,10 @@ const Form = ({ fdata = {}, errors = {} }) => {
             </div>
             <div className="col-md-6 col-lg-4">
               <div className="form-group">
-                <label htmlFor="buyerState">Buyer State:<br/></label>
+                <label htmlFor="buyerState">
+                  Buyer State:
+                  <br />
+                </label>
                 <input
                   id="buyerState"
                   className="form-control"
@@ -129,7 +155,10 @@ const Form = ({ fdata = {}, errors = {} }) => {
             </div>
             <div className="col-md-6 col-lg-4">
               <div className="form-group">
-                <label htmlFor="buyerCountry">Buyer Country:<br/></label>
+                <label htmlFor="buyerCountry">
+                  Buyer Country:
+                  <br />
+                </label>
                 <input
                   id="buyerCountry"
                   className="form-control"
@@ -142,7 +171,10 @@ const Form = ({ fdata = {}, errors = {} }) => {
             </div>
             <div className="col-md-6 col-lg-4">
               <div className="form-group">
-                <label htmlFor="buyerPinCode">Buyer PinCode:<br/></label>
+                <label htmlFor="buyerPinCode">
+                  Buyer PinCode:
+                  <br />
+                </label>
                 <input
                   id="buyerPinCode"
                   className="form-control"
@@ -151,7 +183,7 @@ const Form = ({ fdata = {}, errors = {} }) => {
                   value={formData.buyerPinCode}
                   onChange={handleChange}
                 />
-                <font className="red">{errors.buyerPinCode || ''}</font>
+                <font className="red">{errors.buyerPinCode || ""}</font>
               </div>
             </div>
           </div>
@@ -159,7 +191,10 @@ const Form = ({ fdata = {}, errors = {} }) => {
           <div className="row">
             <div className="col-md-6 col-lg-4">
               <div className="form-group">
-                <label htmlFor="orderid">Order ID <font className="red">*</font><br/></label>
+                <label htmlFor="orderid">
+                  Order ID <font className="red">*</font>
+                  <br />
+                </label>
                 <input
                   id="orderid"
                   className="form-control"
@@ -168,12 +203,15 @@ const Form = ({ fdata = {}, errors = {} }) => {
                   value={formData.orderid}
                   onChange={handleChange}
                 />
-                <font className="red">{errors.orderid || ''}</font>
+                <font className="red">{errors.orderid || ""}</font>
               </div>
             </div>
             <div className="col-md-6 col-lg-4">
               <div className="form-group">
-                <label htmlFor="amount">Amount <font className="red">*</font><br/></label>
+                <label htmlFor="amount">
+                  Amount <font className="red">*</font>
+                  <br />
+                </label>
                 <input
                   id="amount"
                   className="form-control"
@@ -182,12 +220,15 @@ const Form = ({ fdata = {}, errors = {} }) => {
                   value={formData.amount}
                   onChange={handleChange}
                 />
-                <font className="red">{errors.amount || ''}</font>
+                <font className="red">{errors.amount || ""}</font>
               </div>
             </div>
             <div className="col-md-6 col-lg-4">
               <div className="form-group">
-                <label htmlFor="customvar">Custom Field 1:<br/></label>
+                <label htmlFor="customvar">
+                  Custom Field 1:
+                  <br />
+                </label>
                 <input
                   id="customvar"
                   className="form-control"
@@ -200,7 +241,10 @@ const Form = ({ fdata = {}, errors = {} }) => {
             </div>
             <div className="col-md-6 col-lg-4">
               <div className="form-group">
-                <label htmlFor="currency">Currency <font className="red">*</font><br/></label>
+                <label htmlFor="currency">
+                  Currency <font className="red">*</font>
+                  <br />
+                </label>
                 <input
                   id="currency"
                   className="form-control"
@@ -209,12 +253,15 @@ const Form = ({ fdata = {}, errors = {} }) => {
                   value={formData.currency}
                   onChange={handleChange}
                 />
-                <font className="red">{errors.currency || ''}</font>
+                <font className="red">{errors.currency || ""}</font>
               </div>
             </div>
             <div className="col-md-6 col-lg-4">
               <div className="form-group">
-                <label htmlFor="isocurrency">ISO Currency <font className="red">*</font><br/></label>
+                <label htmlFor="isocurrency">
+                  ISO Currency <font className="red">*</font>
+                  <br />
+                </label>
                 <input
                   id="isocurrency"
                   className="form-control"
@@ -223,7 +270,7 @@ const Form = ({ fdata = {}, errors = {} }) => {
                   value={formData.isocurrency}
                   onChange={handleChange}
                 />
-                <font className="red">{errors.isocurrency || ''}</font>
+                <font className="red">{errors.isocurrency || ""}</font>
               </div>
             </div>
           </div>
@@ -231,7 +278,10 @@ const Form = ({ fdata = {}, errors = {} }) => {
           <div className="row">
             <div className="col-md-6 col-lg-4">
               <div className="form-group">
-                <label htmlFor="txnsubtype">Sub Type:<br/></label>
+                <label htmlFor="txnsubtype">
+                  Sub Type:
+                  <br />
+                </label>
                 <input
                   id="txnsubtype"
                   className="form-control"
@@ -244,9 +294,14 @@ const Form = ({ fdata = {}, errors = {} }) => {
             </div>
           </div>
           <div className="btngroup">
-            <button className="btn btn-primary" type="submit">Pay Here</button>
+            <button className="btn btn-primary" type="submit">
+              Pay Here
+            </button>
           </div>
         </form>
       </div>
     </div>
-    )}
+  );
+};
+
+export default Form;
