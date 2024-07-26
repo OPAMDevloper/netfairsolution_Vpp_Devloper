@@ -20,12 +20,13 @@ const ContactUsForm = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
     try {
-      const response = await axios.post('http://localhost:5000/api/contactUs/', formData);
+      const response = await axios.post(`${backendUrl}/api/contactUs/`, formData);
 
       if (response.status === 201) {
         toast.success("Your inquiry has been submitted successfully!");

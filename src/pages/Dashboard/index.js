@@ -8,6 +8,7 @@ const Index = () => {
   const [kycVerified, setKycVerified] = useState(false); // Added state for KYC verification
   const router = useRouter();
   const { email } = router.query;
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +19,7 @@ const Index = () => {
         setLoading(true);
         
         // API call to check KYC verification
-        const response = await fetch(`http://localhost:5000/api/checkKycVerification?email=${email}`);
+        const response = await fetch(`${backendUrl}/api/checkKycVerification?email=${email}`);
         const data = await response.json();
         console.log('Response data:', data);
         
@@ -40,7 +41,7 @@ const Index = () => {
 
     const fetchSubmission = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/getKycSubmission?email=${email}`);
+        const response = await fetch(`${backendUrl}api/getKycSubmission?email=${email}`);
         const data = await response.json();
         console.log('Submission data fetch:', data);
         if (data.kycsubmission == 'true') {

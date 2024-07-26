@@ -15,6 +15,7 @@ const LoginForm = () => {
   const [passwordType, setPasswordType] = useState("password");
   const [isSigningIn, setIsSigningIn] = useState(false);
   const router = useRouter(); // Router instance
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const togglePasswordVisibility = () => {
     setPasswordType((prevType) => (prevType === "password" ? "text" : "password"));
@@ -28,7 +29,7 @@ const LoginForm = () => {
       const { email, password } = data;
       // Sign in with email and password
 
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch(`${backendUrl}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -2,12 +2,14 @@ import React from 'react';
 import axios from 'axios';
 
 const CommentPost = () => {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const { name, email, website, comment } = Object.fromEntries(formData);
     try {
-      await axios.post('http://localhost:5000/api/saveComment', {
+      await axios.post(`${backendUrl}/api/saveComment`, {
         name,
         email,
         website,

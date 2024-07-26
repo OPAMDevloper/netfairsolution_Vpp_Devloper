@@ -11,12 +11,13 @@ const UserDetails = () => {
   const [selectedEmail, setSelectedEmail] = useState('');
   const [kycDetails, setKYCDetails] = useState({});
   const [loading, setLoading] = useState(false);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   // Fetch user emails on component mount
   useEffect(() => {
     const fetchEmails = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/getUserEmails');
+        const response = await fetch(`${backendUrl}/api/getUserEmails`);
         const data = await response.json();
         setEmails(data.emails);
       } catch (error) {
@@ -32,7 +33,7 @@ const UserDetails = () => {
       if (selectedEmail) {
         try {
           setLoading(true);
-          const response = await fetch(`http://localhost:5000/api/getKYCDetailsByEmail?email=${selectedEmail}`);
+          const response = await fetch(`${backendUrl}/api/getKYCDetailsByEmail?email=${selectedEmail}`);
           const data = await response.json();
           setKYCDetails(data.kycDetails);
           setLoading(false);
@@ -50,7 +51,7 @@ const UserDetails = () => {
 const handleVerify = async () => {
   try {
     setLoading(true);
-    const response = await fetch('http://localhost:5000/api/verifyKYC', {
+    const response = await fetch(`${backendUrl}/api/verifyKYC`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -102,7 +103,7 @@ const handleVerify = async () => {
           {/* Display PAN document image if available */}
           {kycDetails.panDocument && (
             <img
-            src={`http://localhost:5000/${kycDetails.panDocument}`}
+            src={`${backendUrl}/${kycDetails.panDocument}`}
             alt="PAN Document"
             style={{ maxWidth: '100%', maxHeight: '200px' }}
           />

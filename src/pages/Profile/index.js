@@ -64,11 +64,12 @@ const Index = () => {
     const [userData, setUserData] = useState(null);
     const [file, setFile] = useState(null);
     const [profileImage, setProfileImage] = useState(null);
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/profile'); // Fetch user data
+                const response = await axios.get(`${backendUrl}/api/profile`); // Fetch user data
                 setUserData(response.data);
             } catch (error) {
                 console.error('Error fetching user data:', error);
@@ -77,10 +78,10 @@ const Index = () => {
 
         const fetchProfileImage = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/profile/image'); // Fetch profile image file name
+                const response = await axios.get(`${backendUrl}/api/profile/image`); // Fetch profile image file name
                 const fileName = response.data.fileName;
                 console.log(fileName);
-                const imageUrl = `http://localhost:5000/${fileName}`; // Assuming images are stored in 'uploads' folder on the server
+                const imageUrl = `${backendUrl}/${fileName}`; // Assuming images are stored in 'uploads' folder on the server
                 setProfileImage(imageUrl);
             } catch (error) {
                 console.error('Error fetching profile image:', error);
@@ -101,17 +102,17 @@ const Index = () => {
             const formData = new FormData();
             formData.append('profileimg', file); // Make sure this matches the field name expected by your backend
     
-            await axios.post('http://localhost:5000/api/profile/image', formData, {
+            await axios.post(`${backendUrl}/api/profile/image`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }});
             console.log('Profile picture uploaded successfully');
     
             // Fetch updated profile image
-            const response = await axios.get('http://localhost:5000/api/profile/image');
+            const response = await axios.get(`${backendUrl}/api/profile/image`);
             const fileName = response.data.fileName;
 
-            const imageUrl = `http://localhost:5000/${fileName}`; // Assuming images are stored in 'uploads' folder on the server
+            const imageUrl = `${backendUrl}/${fileName}`; // Assuming images are stored in 'uploads' folder on the server
             setProfileImage(imageUrl);
             
     
@@ -150,10 +151,10 @@ const Index = () => {
                         <p>GSTIN: {userData.gstin}</p>
                         <p>Bank Account Number: {userData.bankAccountNumber}</p>
                         <p>Bank IFSC: {userData.bankIFSC}</p>
-                        <p>PAN Document: <img src={`http://localhost:5000/${userData.panDocument}`} alt="PAN Document" /></p>
+                        <p>PAN Document: <img src={`${backendUrl}/${userData.panDocument}`} alt="PAN Document" /></p>
                         <p>Selected Document: {userData.selectedDocument}</p>
-                        <p>Bank Document: <img src={`http://localhost:5000/${userData.bankDocument}`} alt="Bank Document" /></p>
-                        <p>Business Address Proof: <img src={`http://localhost:5000/${userData.businessAddressProof}`} alt="Business Address Proof" /></p>
+                        <p>Bank Document: <img src={`${backendUrl}/${userData.bankDocument}`} alt="Bank Document" /></p>
+                        <p>Business Address Proof: <img src={`${backendUrl}/${userData.businessAddressProof}`} alt="Business Address Proof" /></p>
                     </UserData>
                 </ProfileDetails>
             ) : (

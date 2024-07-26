@@ -33,6 +33,7 @@ const Verification = () => {
     const [user, setUser] = useState(null);
     const [userData, setUserData] = useState(null);
     const { email } = router.query;
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
      // File states
      const [panDocument, setPanDocument] = useState(null);
@@ -263,7 +264,7 @@ const handleFormSubmission = async () => {
     }
 
     try {
-        const response = await axios.post('http://localhost:5000/api/verification/submit', formData, {
+        const response = await axios.post(`${backendUrl}/api/verification/submit`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

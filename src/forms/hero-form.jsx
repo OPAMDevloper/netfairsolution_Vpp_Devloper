@@ -3,13 +3,14 @@ import EmailIcon from "../svg/email";
 
 const HeroForm = () => {
   const [email, setEmail] = useState(""); // State to hold the email input value
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Send the form data to the backend
     try {
-      const response = await fetch("http://localhost:5000/api/saveEmail", {
+      const response = await fetch(`${backendUrl}/api/saveEmail`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

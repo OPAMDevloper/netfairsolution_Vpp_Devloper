@@ -8,6 +8,7 @@ const FeedbackForm = () => {
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const validate = () => {
     const newErrors = {};
@@ -25,7 +26,7 @@ const FeedbackForm = () => {
       setErrors(validationErrors);
     } else {
       try {
-        const response = await axios.post('http://localhost:5000/feedback', {
+        const response = await axios.post(`${backendUrl}/feedback`, {
           name,
           email,
           message

@@ -27,14 +27,14 @@ function Navbar() {
     const [kycVerified, setKycVerified] = useState(false);
     const [fullname, setFullname] = useState('');
     const [email, setEmail] = useState('');
-  
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 
     useEffect(() => {
       // Function to check KYC status
       const checkKycStatus = async () => {
         try {
-          const response = await axios.post('http://localhost:5000/api/NabarValidation');
+          const response = await axios.post(`${backendUrl}/api/NabarValidation`);
           if (response.data.kycVerified == 'true') {
             console.log("GOT IT");
             setKycVerified(true);

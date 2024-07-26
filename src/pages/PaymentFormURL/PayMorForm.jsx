@@ -15,6 +15,7 @@ const PayMorForm = () => {
     customerName: "Graphite",
     optional1: "intent",
   });
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,7 +28,7 @@ const PayMorForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/api/payMorAPI/request', {
+      const response = await fetch(`${backendUrl}/api/payMorAPI/request`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

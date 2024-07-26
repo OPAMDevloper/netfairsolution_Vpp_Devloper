@@ -18,6 +18,7 @@ const RegisterForm = () => {
   const [passwordType, setPasswordType] = useState("password");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter(); // Router instance
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const togglePasswordVisibility = () => {
     setPasswordType((prevType) => (prevType === "password" ? "text" : "password"));
@@ -34,7 +35,7 @@ const RegisterForm = () => {
       // const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
       // const { user } = userCredential;
 
-      const response = await axios.post('http://localhost:5000/api/auth/register', {
+      const response = await axios.post(`${backendUrl}/api/auth/register`, {
         email,
         password,
         fullname,
