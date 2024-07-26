@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const PayMorForm = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +15,7 @@ const PayMorForm = () => {
     customerName: "Graphite",
     optional1: "intent",
   });
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,9 +29,9 @@ const PayMorForm = () => {
     e.preventDefault();
     try {
       const response = await fetch(`${backendUrl}/api/payMorAPI/request`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -39,7 +39,7 @@ const PayMorForm = () => {
       console.log(data);
       // Redirect to success page or handle response
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
@@ -53,21 +53,34 @@ const PayMorForm = () => {
           <tbody>
             {Object.keys(formData).map((key) => (
               <tr key={key} style={{ marginBottom: "10px" }}>
-                <td><label htmlFor={key}>{key.charAt(0).toUpperCase() + key.slice(1)}</label></td>
+                <td>
+                  <label htmlFor={key}>
+                    {key.charAt(0).toUpperCase() + key.slice(1)}
+                  </label>
+                </td>
                 <td>
                   <input
                     type="text"
                     name={key}
                     value={formData[key]}
                     onChange={handleChange}
-                    style={{ color: 'black' }}
+                    style={{ color: "black" }}
                   />
                 </td>
               </tr>
             ))}
             <tr>
-              <td colSpan="2" style={{ textAlign: 'center', padding: '5px' }}>
-                <input type="submit" value="SUBMIT" style={{ padding: '6px', width: '100%', background: '#044e78', color: 'white' }} />
+              <td colSpan="2" style={{ textAlign: "center", padding: "5px" }}>
+                <input
+                  type="submit"
+                  value="SUBMIT"
+                  style={{
+                    padding: "6px",
+                    width: "100%",
+                    background: "#044e78",
+                    color: "white",
+                  }}
+                />
               </td>
             </tr>
           </tbody>

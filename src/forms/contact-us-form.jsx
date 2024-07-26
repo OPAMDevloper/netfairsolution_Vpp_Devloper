@@ -10,7 +10,7 @@ const ContactUsForm = () => {
     email: "",
     phoneNumber: "",
     inquiryAbout: "", // Initialize as an empty string
-    message: ""
+    message: "",
   });
 
   const selectHandler = (selectedValue) => {
@@ -20,13 +20,16 @@ const ContactUsForm = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
     try {
-      const response = await axios.post(`${backendUrl}/api/contactUs/`, formData);
+      const response = await axios.post(
+        `${backendUrl}/api/contactUs/`,
+        formData
+      );
 
       if (response.status === 201) {
         toast.success("Your inquiry has been submitted successfully!");
@@ -36,14 +39,14 @@ const ContactUsForm = () => {
           email: "",
           phoneNumber: "",
           inquiryAbout: "Your Inquiry about",
-          message: ""
+          message: "",
         });
       } else {
         toast.error("Failed to submit inquiry");
       }
     } catch (error) {
-      console.error('Error submitting inquiry:', error.message);
-      toast.error('Failed to submit inquiry');
+      console.error("Error submitting inquiry:", error.message);
+      toast.error("Failed to submit inquiry");
     }
   };
 
@@ -120,7 +123,9 @@ const ContactUsForm = () => {
           </div>
           <div className="col-xxl-12">
             <div className="postbox__btn-box">
-              <button type="submit" className="submit-btn w-100">Send your Request</button>
+              <button type="submit" className="submit-btn w-100">
+                Send your Request
+              </button>
             </div>
           </div>
         </div>
