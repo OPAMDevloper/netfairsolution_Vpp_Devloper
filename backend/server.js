@@ -86,8 +86,19 @@ const upload = multer({ storage: storage });
 
 // Middleware
 app.use(bodyParser.json());
+const allowedOrigins = [
+  "http://localhost:3000", 
+  "https://netfairsolutions-user.onrender.com", 
+];
+
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true,
   allowedHeaders: ["Content-Type", "Authorization"]
