@@ -22,12 +22,12 @@ const UserSchema = new mongoose.Schema({
     default: false,
   },
   kycverification: {
-    type: String,
-    default: "false",
+    type: Boolean,
+    default: false,
   },
   kycsubmission: {
-    type: String,
-    default: "false",
+    type: Boolean,
+    default: false,
   },
   createdAt: {
     type: Date,
