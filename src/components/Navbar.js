@@ -20,20 +20,26 @@ import "react-toastify/dist/ReactToastify.css";
 /* Install pure-react-carousel using -> npm i pure-react-carousel */
 import { firebase } from "../Firebase/config";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 function Navbar() {
   const router = useRouter();
 
   const [kycVerified, setKycVerified] = useState(false);
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
+  const currentUser = useSelector((state) => state.user.currentUser);
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-
   useEffect(() => {
     // Function to check KYC status
     const checkKycStatus = async () => {
       try {
-        const response = await axios.post(`${backendUrl}/api/NabarValidation`);
-        if (response.data.kycVerified == "true") {
+        const response = await axios.post(
+          `${backendUrl}/api/NavbarValidation`,
+          {
+            email: currentUser.email,
+          }
+        );
+        if (response.data.kycVerified) {
           console.log("GOT IT");
           setKycVerified(true);
           setFullname(response.data.fullname);

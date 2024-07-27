@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const ProfileContainer = styled.div`
   margin-left: 20%;
@@ -65,11 +66,13 @@ const Index = () => {
   const [file, setFile] = useState(null);
   const [profileImage, setProfileImage] = useState(null);
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-
+  const currentUser = useSelector((state) => state.user.currentUser);
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${backendUrl}/api/profile`); // Fetch user data
+        const response = await axios.get(`${backendUrl}/api/profile`, {
+          params: { email: currentUser.email },
+        });
         setUserData(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -78,10 +81,12 @@ const Index = () => {
 
     const fetchProfileImage = async () => {
       try {
-        const response = await axios.get(`${backendUrl}/api/profile/image`); // Fetch profile image file name
+        const response = await axios.get(`${backendUrl}/api/profile/image`, {
+          params: { email: currentUser.email },
+        });
         const fileName = response.data.fileName;
         console.log(fileName);
-        const imageUrl = `${backendUrl}/${fileName}`; // Assuming images are stored in 'uploads' folder on the server
+        const imageUrl = `${backendUrl}/${fileName}`;
         setProfileImage(imageUrl);
       } catch (error) {
         console.error("Error fetching profile image:", error);
@@ -90,7 +95,7 @@ const Index = () => {
 
     fetchUserData();
     fetchProfileImage();
-  }, []);
+  }, [currentUser.email]);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -100,8 +105,8 @@ const Index = () => {
     event.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("profileimg", file); // Make sure this matches the field name expected by your backend
-
+      formData.append("profileimg", file);
+      formData.append("email", currentUser.email);
       await axios.post(`${backendUrl}/api/profile/image`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -110,7 +115,9 @@ const Index = () => {
       console.log("Profile picture uploaded successfully");
 
       // Fetch updated profile image
-      const response = await axios.get(`${backendUrl}/api/profile/image`);
+      const response = await axios.get(`${backendUrl}/api/profile/image`, {
+        params: { email: currentUser.email },
+      });
       const fileName = response.data.fileName;
 
       const imageUrl = `${backendUrl}/${fileName}`; // Assuming images are stored in 'uploads' folder on the server

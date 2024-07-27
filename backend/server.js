@@ -171,26 +171,22 @@ app.post("/api/verifyKYC", async (req, res) => {
 
 //USer Profile
 app.get("/api/profile", async (req, res) => {
-  const email = "vp0072003@gmail.com";
-  console.log(email);
-
+  const email = req.query.email;
   try {
     const user = await KYC.findOne({ email });
-
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    console.log(user);
-
     res.status(200).json(user);
   } catch (error) {
     console.error("Error fetching user data:", error.message);
     res.status(500).json({ message: "Server error" });
   }
 });
+
 app.get("/api/profile/image", async (req, res) => {
   try {
-    const email = "vp0072003@gmail.com";
+    const email = req.query.email;
     const user = await KYC.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -199,7 +195,6 @@ app.get("/api/profile/image", async (req, res) => {
     // Assuming 'profileimg' is the key in the KYC schema containing the file path
     const imagePath = user.profileimg;
     const fileName = imagePath.split("/").pop(); // Extract the file name from the path
-    console.log(fileName);
 
     // Send the file name as a response
     res.json({ fileName });
@@ -213,7 +208,7 @@ app.post(
   upload.fields([{ name: "profileimg" }]),
   async (req, res) => {
     try {
-      const email = "vp0072003@gmail.com";
+      const email = req.body.email;
       const files = req.files;
       const user = await KYC.findOneAndUpdate(
         { email },
@@ -231,8 +226,9 @@ app.post(
     }
   }
 );
-app.post("/api/NabarValidation", async (req, res) => {
-  const email = "vp0072003@gmail.com";
+app.post("/api/NavbarValidation", async (req, res) => {
+  const { email } = req.body;
+  console.log(req.body);
   try {
     const userKyc = await User.findOne({ email });
     if (userKyc) {

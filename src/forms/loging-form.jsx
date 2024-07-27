@@ -10,12 +10,17 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { signInFailure, signInStart, signInSuccess } from "@/redux/slices/userSlice";
 
 const LoginForm = () => {
   const [passwordType, setPasswordType] = useState("password");
   const [isSigningIn, setIsSigningIn] = useState(false);
   const router = useRouter(); // Router instance
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.user.loading);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const togglePasswordVisibility = () => {
     setPasswordType((prevType) =>
@@ -26,6 +31,7 @@ const LoginForm = () => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
+    dispatch(signInStart());
     try {
       setIsSigningIn(true); // Set signing in state to true
       const { email, password } = data;
@@ -40,18 +46,20 @@ const LoginForm = () => {
       });
       const responseData = await response.json();
       if (response.ok) {
-        // Successful login
+        // Successful login 
         setIsSigningIn(false); // Set signing in state to false after successful sign in
         toast.success("Sign in successful!"); // Show success notification
+        dispatch(signInSuccess(responseData.user)); 
         router.push({
           pathname: "/Dashboard",
           query: { email: email },
         }); // Redirect to home page or any other page after successful sign in
-        // Save token to localStorage or state for future requests
+        
       } else {
         // Failed login
         setIsSigningIn(false);
         toast.error("Wrong Credentials");
+        dispatch(signInFailure("An error occurred"));
       }
 
       // await firebase.auth().signInWithEmailAndPassword(email, password);

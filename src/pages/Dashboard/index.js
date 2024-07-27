@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 const Index = () => {
   const [loading, setLoading] = useState(true);
   const [kycSubmission, setKycSubmission] = useState(null);
-  const [kycVerified, setKycVerified] = useState(false); // Added state for KYC verification
+  const [kycVerified, setKycVerified] = useState(false);
   const router = useRouter();
   const { email } = router.query;
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
