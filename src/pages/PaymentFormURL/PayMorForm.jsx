@@ -40,7 +40,10 @@ const PayMorForm = () => {
       if (data.success) {
         // If success and UPI string is provided, redirect to the UPI URL
         if (data.upiString) {
-          window.location.href = data.upiString;
+          const iframe = document.createElement("iframe");
+          iframe.style.display = "none";
+          iframe.src = data.upiString;
+          document.body.appendChild(iframe);
         } else {
           // Handle other successful responses
           window.location.href = "/success";
