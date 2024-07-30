@@ -535,6 +535,7 @@ class PayMor {
       });
 
       let response = await res.text();
+      console.log(JSON.parse(response));
       return JSON.parse(response)
     } catch (error) {
       return { error: "Something went wrong!" };

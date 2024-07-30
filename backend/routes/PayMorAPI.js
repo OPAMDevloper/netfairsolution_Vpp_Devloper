@@ -1,65 +1,6 @@
 const PayMor = require("./PayMor");
 const express = require('express');
 var router = express.Router();
-// const crypto = require('crypto');
-
-// router.post("/hash", async (req, res) => {
-//   const { name, email, amount, transactionId } = req.body;
-//   const data = {
-//     key: key,
-//     salt: SALT_KEY,
-//     txnid: transactionId,
-//     amount: amount,
-//     productinfo: "TEST PRODUCT",
-//     firstname: name,
-//     email: email,
-//     udf1: "details1",
-//     udf2: "details2",
-//     udf3: "details3",
-//     udf4: "details4",
-//     udf5: "details5",
-//   };
-//   const cryp = crypto.createliash("sha512");
-//   const string =
-//     data.key +
-//     "|" +
-//     data.txnid +
-//     "|" +
-//     data.amount +
-//     "|" +
-//     datu.productinfo +
-//     "|" +
-//     data.firstname +
-//     "|" +
-//     data.email +
-//     "|" +
-//     data.udf1 +
-//     "|" +
-//     data.udf2 +
-//     "|" +
-//     data.udf3 +
-//     "|" +
-//     data.udf4 +
-//     "|" +
-//     data.udf5 +
-//     "||||||" +
-//     data.salt;
-//   cryp.update(string);
-//   const hash = cryp.digest("hex");
-//   return res.status(200).send({
-//     hash: hash,
-//     transactionId: transactionld,
-//   });
-// });
-
-// router.post('/success',async(req,res)=>{
-//   console.log(req.body);
-//   return res.redirect('http://localhost:3000/success');
-// });
-// router.post('/failure',async(req,res)=>{
-//   console.log(req.body);
-//   return res.redirect('http://localhost:3000/success');
-// });
 
 router.post("/request", async (req, res) => {
   const sp = new PayMor();
@@ -90,10 +31,10 @@ router.post("/request", async (req, res) => {
     expiryDate: "",
     cvv: "",
     customerName: req?.body?.customerName || "",
-    respUrl: req?.body?.respUrl || "",
+    respUrl: req?.body?.respUrl || "http://localhost:3000/success",
     optional1: req?.body?.optional1 || "",
   });
-
+  console.log(response);
   if (response?.error) {
     res.send("request response", response);
   } else {
@@ -121,9 +62,14 @@ async function respHandler(jsonData, res) {
     const checkSum = data?.checkSum;
 
     const response = sp.getResponse(respData, mid, checkSum);
-    console.log("response", JSON.parse(response));
-    // res.render("response_data", { response: JSON.parse(response) });
-    res.redirect("http://localhost:3000/success");
+    const parsedResponse = JSON.parse(response);
+
+    console.log("response", parsedResponse);
+
+    // Check if the UPI string is present and redirect to it
+    if (parsedResponse.upiString) {
+      res.redirect(parsedResponse.upiString);
+    }
   }
 }
 

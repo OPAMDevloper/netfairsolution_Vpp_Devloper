@@ -36,8 +36,14 @@ const PayMorForm = () => {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
+
       console.log(data);
-      // Redirect to success page or handle response
+      const paymentUrl = data.paymentUrl;
+      if (paymentUrl) {
+        window.location.href = paymentUrl; // Redirect to payment gateway
+      } else {
+        console.error("Payment URL not found in the response");
+      }
     } catch (error) {
       console.error("Error:", error);
     }
