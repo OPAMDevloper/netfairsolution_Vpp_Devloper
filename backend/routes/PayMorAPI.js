@@ -66,10 +66,11 @@ async function respHandler(jsonData, res) {
 
     console.log("response", parsedResponse);
 
-    // Check if the UPI string is present and redirect to it
-    if (parsedResponse.upiString) {
-      res.redirect(parsedResponse.upiString);
-    }
+    res.status(200).json({
+      message: parsedResponse.respMessage,
+      success: true,
+      upiString: parsedResponse.upiString, // Assuming the UPI string is provided here
+    });
   }
 }
 

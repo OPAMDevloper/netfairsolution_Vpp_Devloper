@@ -37,15 +37,22 @@ const PayMorForm = () => {
       });
       const data = await response.json();
 
-      console.log(data);
-      const paymentUrl = data.paymentUrl;
-      if (paymentUrl) {
-        window.location.href = paymentUrl; // Redirect to payment gateway
+      if (data.success) {
+        // If success and UPI string is provided, redirect to the UPI URL
+        if (data.upiString) {
+          window.location.href = data.upiString;
+        } else {
+          // Handle other successful responses
+          window.location.href = "/success";
+        }
       } else {
-        console.error("Payment URL not found in the response");
+        // Handle failure case
+        console.error(data.message);
+        alert("Payment failed. Please try again.");
       }
     } catch (error) {
       console.error("Error:", error);
+      alert("An error occurred. Please try again.");
     }
   };
 
