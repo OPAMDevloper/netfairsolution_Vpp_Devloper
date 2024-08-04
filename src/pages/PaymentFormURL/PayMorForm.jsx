@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const PayMorForm = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +17,6 @@ const PayMorForm = () => {
     optional1: "intent",
   });
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -24,6 +24,8 @@ const PayMorForm = () => {
       [name]: value,
     });
   };
+
+  const [upiS, setupiS] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,6 +42,7 @@ const PayMorForm = () => {
       if (data.success) {
         // If success and UPI string is provided, redirect to the UPI URL
         if (data.upiString) {
+          setupiS(data.upiString);
           const upiLink = document.createElement("a");
           upiLink.href = data.upiString;
           upiLink.click();
@@ -101,6 +104,7 @@ const PayMorForm = () => {
           </tbody>
         </table>
       </form>
+      {upiS != "" && <a href={upiS}>UPI App Open</a>}
     </center>
   );
 };

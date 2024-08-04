@@ -69,7 +69,7 @@ async function respHandler(jsonData, res) {
     res.status(200).json({
       message: parsedResponse.respMessage,
       success: true,
-      upiString: parsedResponse.upiString, // Assuming the UPI string is provided here
+      upiString: parsedResponse.upiString,
     });
   }
 }
